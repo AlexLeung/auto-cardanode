@@ -18,13 +18,13 @@ Base features I'm aiming for:
 - All config is kept in a file which only you have access to, should
   also be encrypted with a master password. You upload this file each
   time you want to essentially "log in" to manage your stake pool.
+  - This file will contain all your keys (cloud keys, crypto keys).
+  You will download this file via browser. It will be encrypted via a master
+  password. Keep it safe since it will be the keys to the kingdom.
 - K8s will have following services
   - Cardano node (at least 2 pods to enable rolling updates)
   - prometheus for monitoring
   - some web app to handle self-serve config and display graphana
-- One file will contain all your keys (cloud keys, crypto keys).
-  You will download this file via browser. It will be encrypted via a master
-  password. Keep it safe since it will be the keys to the kingdom.
 
 Future features:
 - have a fleet of different stake pools.
