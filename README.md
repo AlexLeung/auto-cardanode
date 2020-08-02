@@ -5,10 +5,14 @@ for creating and maintaining a Cardano stake-pool node professionally.
 
 I would love to work on this full-time. Send your ADA donations to
 ___________
-
-
 Dev Notes:
 - Currently working on https://www.pulumi.com/docs/tutorials/kubernetes/gke/
+- Using a Service Account rather than clunky GUI auth. Need to
+```
+export GOOGLE_CREDENTIALS=$(cat credentials.json)
+```
+- Lots of minor annoyances never mentioned in Pulumi or GCP docs. Was unable to use N2 machine type because Quota requests thru GUI kept on failing. Ended up going with the cost-effective e2. Reason I wanted N2 is because it has local SSD..
+
 ___________
 
 Base features I'm aiming for:

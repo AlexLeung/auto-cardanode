@@ -1,5 +1,6 @@
 /bin/
 /node_modules/
+/secrets/
 Pulumi.yaml
 Pulumi.dev.yaml
 package-lock.json

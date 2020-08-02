@@ -11,7 +11,7 @@ const cluster = new gcp.container.Cluster(name, {
     minMasterVersion: engineVersion,
     nodeVersion: engineVersion,
     nodeConfig: {
-        machineType: 'n2-standard-2',
+        machineType: 'e2-standard-2',
         oauthScopes: [
             "https://www.googleapis.com/auth/compute",
             "https://www.googleapis.com/auth/devstorage.read_only",
