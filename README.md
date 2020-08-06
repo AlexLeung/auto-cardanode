@@ -7,6 +7,8 @@ I would love to work on this full-time. Send your ADA donations to
 ___________
 Dev Notes:
 - Currently working on https://www.pulumi.com/docs/tutorials/kubernetes/gke/
+- Currently looking into https://hub.docker.com/r/cardanobay/cardano-node as a potential base. Github is here https://github.com/cardanobay/cardano-node
+- Also learning about K8s in general XD https://www.tutorialspoint.com/kubernetes/kubernetes_jobs.htm
 - Using a Service Account rather than clunky GUI auth. Need to
 ```
 export GOOGLE_CREDENTIALS=$(cat credentials.json)

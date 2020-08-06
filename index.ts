@@ -63,12 +63,9 @@ users:
 const clusterProvider = new k8s.Provider(name, {
     kubeconfig: kubeconfig,
 });
-clusterProvider; // to get rid of ts error
 
 // PART 2;
-/*
-function part2() {
-    // Create a Kubernetes Namespace
+// Create a Kubernetes Namespace
 const ns = new k8s.core.v1.Namespace(name, {}, { provider: clusterProvider });
 
 // Export the Namespace name
@@ -129,8 +126,4 @@ const service = new k8s.core.v1.Service(name,
 
 // Export the Service name and public LoadBalancer endpoint
 export const serviceName = service.metadata.apply(m => m.name);
-export const servicePublicIP = service.status.apply(s => s.loadBalancer.ingress[0].ip)
-}
-
-part2;
-*/
+export const servicePublicIP = service.status.apply(s => s.loadBalancer.ingress[0].ip);
