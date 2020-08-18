@@ -1,7 +1,7 @@
 
 
 Welcome. I intend to grow this project into a mostly self-serve suite
-for creating and maintaining a Cardano stake-pool node professionally.
+for creating and maintaining a Cardano stake-pool node securely and professionally.
 
 I would love to work on this full-time. Send your ADA donations to [addr1qxgke7saygkwfpkfszvatg5mg6zawuzgw097awj7mlyecghuya8h2ee38wpwd09akk6kdl2s9kuwavae3rp4fj7fxq8sts3rqv](https://explorer.cardano.org/en/no-search-results?query=addr1qxgke7saygkwfpkfszvatg5mg6zawuzgw097awj7mlyecghuya8h2ee38wpwd09akk6kdl2s9kuwavae3rp4fj7fxq8sts3rqv). I'll be using this adddress exclusively for collecting donations, so you can view the funds sent here and judge whether or not I deserve more. If you see an error on that cardano scanner page it's because I haven't received any donations.. so no TXs exist to that address yet.
 ___________
@@ -22,17 +22,14 @@ Base features I'm aiming for:
   - some web app to handle self-serve config and display graphana
 
 Future features:
-- have a fleet of different stake pools.
+- have a fleet of different stake pools. Have a map like Zillow, but instead of choosing housing locations, you choose datacenters to keep your relay and block-producing nodes. 0-downtime migrations of nodes from one location to another.
 - manage portfolio once native assets result in a basket of cryptos.
   Maybe use adrestia to DEX your other assets earnings back into ADA
   for you.
-- export tax reports for all taxable events
-- texting you or sending some message when your monitor thresholds breach
+- export tax reports for all taxable events (US supported out-of-the-gate with plugin API for others to add their own jurisdictions)
+- texting you or sending some message when your monitor thresholds breach (you should be informed when your node isn't working correctly)
 - splitting between on-prem, different cloud hosts to compare pricing
   real-time, and get graphana metrics on this too.
-- 0 downtime migrations to different region (maybe you want 1 pool 
-  in Georgia state and another in Georgia the nation; maybe you want to 
-  migrate from a Hong Kong data center to one in Iowa). Would be cool to select from a map and see data center stats like Zillow but for datacenters
 
 
 TODOs:
@@ -64,5 +61,5 @@ Removing intermediate container 5a492c0d78fa
 - Was looking into solutions for browser-based creation and signing of keys and certificates such that the app can just be browser-based. I came across 
   - [input-output-hk/cardano-js-sdk](https://github.com/input-output-hk/cardano-js-sdk) which is not under active development (shame because it's typescript)
   - [input-output-hk/cardano-launcher](https://github.com/input-output-hk/cardano-launcher), but this is a no-go for browser-based since this is really just a node.js library which runs the cardano-wallet and/or cardano-cli in the background (honestly what's the point of this one?)
-  - I created a question issue in the Emurgo repo to understand if they have a separate library I could use. After all Yoroi is just a React app so their TX stuff must be in only javascript. The only issue is whether or not it's in a separate library.
+  - I created [a question issue in the Emurgo repo](https://github.com/Emurgo/yoroi-frontend/issues/1654) to understand if they have a separate library I could use. After all Yoroi is just a React app so their TX stuff must be in only javascript. The only issue is whether or not it's in a separate library.
   - Worst-case I could copy tx-specific logic from Yoroi's repo and separate out into my own package med-term; short-term though it looks like I'm going to end up resigned to having the app be Node.js based for now, since I need to run at least 2 CLIs: `cardano-cli`, `pulumi up`
