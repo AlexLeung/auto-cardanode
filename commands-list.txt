@@ -1,0 +1,118 @@
+export CARDANO_NODE_SOCKET_PATH=~/relay/db/node.socket
+
+# KEYS
+
+
+
+cardano-cli shelley node key-gen \
+--cold-verification-key-file cold.vkey \
+--cold-signing-key-file cold.skey \
+--operatrional-certificate-issue-counter-file cold.counter
+
+# RELAY
+
+cardano-node run \
+--topology relay/shelley_testnet-topology.json \
+--database-path relay/db \
+--socket-path relay/db/node.socket \
+--host-addr ${host address of the thing} \
+--port 3000 \
+--config relay/shelley_testnet-config.json
+
+# CORE
+
+cardano-cli shelley node issue-op-cert \
+--kes-verification-key-file kes.vkey \
+--cold-signing-key-file cold.skey \
+--operational-certification-issue-counter cold.counter \
+--kes-period 211 \ <-- TIP / 3600?
+--out-file node.cert
+
+## Start the node
+
+cardano-node run \
+--topology core/shelley_testnet-topology.json \
+--database-path core/db \
+--socket-path core/db/node.socket \
+--host-addr ${host address of the thing} \
+--port 3000 \
+--config core/shelley_testnet-config.json \ <-- will contain a lot of info including prometheus port
+--shelley-kes-key poolkeys/kes.skey \
+--shelley-vrf-key poolkeys/vrf.skey \
+--shelley-operational-certificate poolkeys/node.cert
+
+# Register the stake pool and metadata
+
+Host a json file at a website you own
+
+{
+    "name": "TestPool",
+    "description": "The pool that tests all the pools",
+    "ticker": "DYSON",
+    "homepage": dyson.cardano.alexleung.net"
+}
+
+cardano-cli shelley stake-pool metadata-hash --pool-metadata-file testPool.json
+
+cardano-cli shelley stake-pool registration-certificate \
+--cold-verification-key-file cold.vkey \
+--vrf-verification-key-file vrf.vkey \
+--pool-pledge ${in lovelaces} \
+--pool-cost ${in lovelaces} \
+--pool-margin 0.04 \
+--pool-reward-account-verification-key-file stake.vkey \
+--pool-owner-stake-verification-key-file stake.vkey \
+--testnet-magin 42 \
+--pool-relay-ipv4 ${} \
+--pool-relay-port ${} \
+--metadata-url ${permalink to json file} \
+--metadata-hash ${hash of json file for verification?} \
+--out-file pool-registration.cert
+
+# Honoring the pledge
+
+cardano-cli shelley stake-address delegation-certificate \
+--stake-verification-key-file stake.vkey \
+--cold-verification-key-file cold.vkey \
+--out-file delegation.cert
+
+cadano-cli shelley transaction build-raw \
+--tx-in 9db6fc...#0 \
+--tx-out $(cat paymentwithstake.addr)+0 \
+--ttl 0 \ <-- slot number
+--fee 0 \ <-- expression to get this
+--out-file tx.raw \
+--certificate-file pool-registration.cert \
+--certificate-file delegation.cert
+
+cardano-cli shelley transaction sign \
+--tx-body-file tx.raw \
+--signing-key-file payment.skey \
+--signing-key-file stake.skey \
+--signing-key-file cold.skey \
+--testnet-magic 42 \
+--out-file tx.signed
+
+cardano-cli shelley transaction submit \
+--tx-file tx.signed \
+--testnet-magic 42
+
+# Verify the stake pool registration was a success
+
+cardano-cli shelley stake-pool id --verification-key-file <path to your cold.vkey>
+
+^ outputs a pool ID.
+v below will check for the presence of the pool ID in the network ledger state
+
+cardano-cli shelley query ledger-state --testnet-magic 42 | grep publicKey | grep
+
+or 
+
+cardano-cli shelley query ledger-state --testnet-magic 42 \
+| jq '._delegationState._pstate._pParams.<poolid>'
+
+# RETIRING A STAKE POOL
+
+# IDEALLY, you should have only the relay node ip address can contact the block producer node
+
+# The node will but out a prometheus port for prometheus to scan.
