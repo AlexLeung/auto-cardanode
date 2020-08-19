@@ -4,3 +4,9 @@
 Pulumi.yaml
 Pulumi.dev.yaml
 package-lock.json
+/.yarn
+/yarn.lock
+/.yarnrc.yml
+/.pnp.js
+/.ts-monorepo
+/.vscode

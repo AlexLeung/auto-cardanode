@@ -1,0 +1,60 @@
+{
+    "version": "0.0.0",
+    "ttypescript": false,
+    "port": 3400,
+    "templates": {
+        "ignore-auto-generated-config-files": {
+            "extends": [],
+            "files": {
+                "ignore": {
+                    ".gitignore": [
+                        "/build",
+                        "/package.json",
+                        "/tsconfig.json",
+                        "/tsconfig.tsbuildinfo"
+                    ]
+                }
+            }
+        }
+    },
+    "packages": {
+        "@alleung": {
+            "auto-cardanode": {
+                "-cli~": {
+                    "extends": ["ignore-auto-generated-config-files"],
+                    "files": {
+                        "json": {
+                            "package.json": {
+                                "devDependencies": [
+                                    "@types/node"
+                                ],
+                                "dependencies": [
+                                    "@pulumi/gcp",
+                                    "@pulumi/kubernetes",
+                                    "@pulumi/pulumi"
+                                ]
+                            },
+                            "tsconfig.json": {
+                                "compilerOptions": {
+                                    "strict": true,
+                                    "target": "es2016",
+                                    "module": "commonjs",
+                                    "moduleResolution": "node",
+                                    "experimentalDecorators": true,
+                                    "pretty": true,
+                                    "noFallthroughCasesInSwitch": true,
+                                    "noImplicitReturns": true,
+                                    "forceConsistentCasingInFileNames": true,
+                                    "noUnusedLocals": true
+                                }
+                            }
+                        }
+                    }
+                },
+                "-front-end~": {
+                    "extends": ["ignore-auto-generated-config-files"],
+                }
+            }
+        }
+    }
+}

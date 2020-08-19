@@ -40,6 +40,18 @@ TODOs:
 
 ___________
 Dev Notes:
+- Work on this in VSCode. Once cloned, you can build the code by running in sequence
+  - `yarn set version berry`
+  - `yarn install`
+  - `yarn add -D @yarnpkg/pnpify`
+  - `yarn pnpify --sdk vscode`
+  - `yarn remove @yarnpkg/pnpify`
+  - `yarn ts-monorepo`
+  - Next in vscode at the bottom right with a typscript file open
+    - click the typescript version
+    - click `Select TypeScript Version`
+    - click `Use Workspace Version pnpify` which will use a custom ts language server which understands how to resolve the Yarn v2 Plug-n-Play dependency system.
+  - To inspect some 3rd party package's definitions you need to [yarn unplug](https://yarnpkg.com/cli/unplug) the library first
 - Currently working on https://www.pulumi.com/docs/tutorials/kubernetes/gke/
 - Currently looking into https://hub.docker.com/r/cardanobay/cardano-node as a potential base. Github is here https://github.com/cardanobay/cardano-node **EDIT:** realized I can just use [inputoutput/cardano-node](https://hub.docker.com/r/inputoutput/cardano-node) from Docker Hub. IOG actually has a Github Action which pushes the CLI to Docker Hub upon each commit. See [here](https://github.com/input-output-hk/cardano-node/blob/master/.buildkite/pipeline.yml#L29) and [here](https://github.com/input-output-hk/cardano-node/blob/master/.buildkite/docker-build-push.nix#L40).
 - Also learning about K8s in general XD https://www.tutorialspoint.com/kubernetes/kubernetes_jobs.htm
@@ -62,4 +74,4 @@ Removing intermediate container 5a492c0d78fa
   - [input-output-hk/cardano-js-sdk](https://github.com/input-output-hk/cardano-js-sdk) which is not under active development (shame because it's typescript)
   - [input-output-hk/cardano-launcher](https://github.com/input-output-hk/cardano-launcher), but this is a no-go for browser-based since this is really just a node.js library which runs the cardano-wallet and/or cardano-cli in the background (honestly what's the point of this one?)
   - I created [a question issue in the Emurgo repo](https://github.com/Emurgo/yoroi-frontend/issues/1654) to understand if they have a separate library I could use. After all Yoroi is just a React app so their TX stuff must be in only javascript. The only issue is whether or not it's in a separate library.
-  - Worst-case I could copy tx-specific logic from Yoroi's repo and separate out into my own package med-term; short-term though it looks like I'm going to end up resigned to having the app be Node.js based for now, since I need to run at least 2 CLIs: `cardano-cli`, `pulumi up`. **EDIT:**: Looks like Emurgo has [Emurgo/cardano-serialization-lib](https://github.com/Emurgo/cardano-serialization-lib) which should suit my needs, and as for Pulumi, there's this thread which seems like the best hope to be able to run Pulumi in the browser pulumi/pulumi#3901.
+  - Worst-case I could copy tx-specific logic from Yoroi's repo and separate out into my own package med-term; short-term though it looks like I'm going to end up resigned to having the app be Node.js based for now, since I need to run at least 2 CLIs: `cardano-cli`, `pulumi up`. **EDIT:**: Looks like Emurgo has [Emurgo/cardano-serialization-lib](https://github.com/Emurgo/cardano-serialization-lib) which should suit my needs, and as for Pulumi, there's this thread which seems like the best hope to be able to run Pulumi in the browser [pulumi/pulumi#3901](https://github.com/pulumi/pulumi/issues/3901).
