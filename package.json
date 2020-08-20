@@ -1,7 +1,8 @@
 {
   "name": "auto-cardanode",
   "scripts": {
-    "start": "pulumi up --yes"
+    "pulumi": "pulumi up --yes",
+    "start": "yarn workspace @alleung/auto-cardanode-cli start"
   },
   "devDependencies": {
     "@isomorphic-typescript/ts-monorepo": "next",
@@ -9,7 +10,13 @@
   },
   "private": true,
   "workspaces": [
+    "packages/@alleung/auto-cardanode/common~",
     "packages/@alleung/auto-cardanode/front-end~",
     "packages/@alleung/auto-cardanode/cli~"
-  ]
+  ],
+  "dependenciesMeta": {
+    "fastify": {
+      "unplugged": true
+    }
+  }
 }

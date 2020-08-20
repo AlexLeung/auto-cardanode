@@ -15,30 +15,63 @@
                     ]
                 }
             }
+        },
+        "standard": {
+            "extends": ["ignore-auto-generated-config-files"],
+            "files": {
+                "json": {
+                    "package.json": {
+                        "author": "Alexander Leung",
+                        "license": "MIT"
+                    },
+                    "tsconfig.json": {
+                        "compilerOptions": {
+                            "target": "es6",
+                            "lib": ["esnext"],
+                            "module": "commonjs"
+                        }
+                    }
+                }
+            }
         }
     },
     "packages": {
         "@alleung": {
             "auto-cardanode": {
                 "-cli~": {
-                    "extends": ["ignore-auto-generated-config-files"],
+                    "extends": ["standard"],
                     "files": {
                         "json": {
                             "package.json": {
                                 "devDependencies": [
-                                    "@types/node"
+                                    "@types/node",
+                                    "nodemon",
+                                    "shx",
+                                    "@types/uuid"
                                 ],
                                 "dependencies": [
                                     "@pulumi/gcp",
                                     "@pulumi/kubernetes",
-                                    "@pulumi/pulumi"
-                                ]
+                                    "@pulumi/pulumi",
+                                    "fastify",
+                                    "ansicolor",
+                                    "uuid",
+                                    "@alleung/auto-cardanode-common"
+                                    // "open" so apparntly the maker of open dislikes Yarn and Yarn breaks too many things. https://github.com/sindresorhus/open/pull/185
+                                ],
+                                "scripts": {
+                                    "simlink:front-end": "shx rm ./build/front-end && shx ln -s ../../front-end~/build ./build/front-end",
+                                    "start": "yarn simlink:front-end && nodemon --watch './build' --exec 'node ./build/server.js'"
+                                },
+                                "dependenciesMeta": {
+                                    "fastify": {
+                                        "unplugged": true
+                                    }
+                                }
                             },
                             "tsconfig.json": {
                                 "compilerOptions": {
                                     "strict": true,
-                                    "target": "es2016",
-                                    "module": "commonjs",
                                     "moduleResolution": "node",
                                     "experimentalDecorators": true,
                                     "pretty": true,
@@ -52,7 +85,32 @@
                     }
                 },
                 "-front-end~": {
-                    "extends": ["ignore-auto-generated-config-files"],
+                    "extends": ["standard"],
+                    "files": {
+                        "json": {
+                            "package.json": {
+                                "dependencies": [
+                                    "@alleung/auto-cardanode-common"
+                                ]
+                            },
+                            "tsconfig.json": {
+                                "compilerOptions": {
+                                    "lib": ["dom"],
+                                    "module": "none" // See https://stackoverflow.com/questions/43472778/typescript-exports-is-not-defined this is temporary until I can get webpack working inside ts-monorepo
+                                }
+                            }
+                        }
+                    }
+                },
+                "-common~": {
+                    "extends": ["standard"],
+                    "files": {
+                        "json": {
+                            "package.json": {
+                                "main": "./build/common.js"
+                            }
+                        }
+                    }
                 }
             }
         }
