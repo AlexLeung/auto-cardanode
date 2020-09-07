@@ -2,7 +2,7 @@ import fastifyFactory from 'fastify';
 import * as ansicolor from 'ansicolor';
 import * as fs from 'fs';
 import * as path from 'path';
-import { port, serverInstance } from './constants';
+import { port } from './constants';
 import { rpcHandler } from './rpc';
 
 const fastify = fastifyFactory({
@@ -12,7 +12,7 @@ const fastify = fastifyFactory({
 fastify.get('/script.js', (req, res) => {
     res
         .type('application/javascript')
-        .send(fs.createReadStream(path.resolve(__dirname, 'front-end/spa.js')));
+        .send(fs.createReadStream(path.resolve(__dirname, 'front-end/main.js')));
 });
 
 fastify.get('*', (req, res) => {
@@ -21,18 +21,16 @@ fastify.get('*', (req, res) => {
     .send(`
     <html>
         <head>
+            <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
             <style>
-            body, html {
-                padding: 0;
-                margin: 0;
-            }
+                body, html {
+                    padding: 0;
+                    margin: 0;
+                }
             </style>
         </head>
         <body>
             <div id="app">hello world</div>
-            <script>
-                window.serverInstance = '${serverInstance}';
-            </script>
             <script src="/script.js"></script>
         </body>
     </html>
@@ -52,7 +50,9 @@ fastify.addContentTypeParser('application/json', { parseAs: 'string' }, (req, bo
 fastify.post('/rpc', async (req, res) => {
     const requestObj = req.body as { requestType: any, payload: any };
     try {
-        const responseObj = await rpcHandler.request(requestObj.requestType, requestObj.payload);
+        const responseObj = {
+            payload: JSON.stringify(await (rpcHandler as any)[requestObj.requestType](requestObj.payload))
+        };
         res
             .type('application/json')
             .send(responseObj);
@@ -64,6 +64,6 @@ fastify.post('/rpc', async (req, res) => {
     }
 })
 
-fastify.listen(port);
+fastify.listen(port, '0.0.0.0');
 
 console.log(`Navigate to ${ansicolor.lightBlue(`http://localhost:${port}`)} to view application`);

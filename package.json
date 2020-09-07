@@ -1,20 +1,25 @@
 {
   "name": "auto-cardanode",
   "scripts": {
-    "pulumi": "pulumi up --yes",
-    "start": "yarn workspace @alleung/auto-cardanode-cli start"
+    "start": "yarn workspace @alleung/auto-cardanode-cli start",
+    "web-bundle": "yarn workspace @alleung/auto-cardanode-dev-setup node --preserve-symlinks -r source-map-support/register ./build/front-end-bundle.js"
   },
   "devDependencies": {
     "@isomorphic-typescript/ts-monorepo": "next",
-    "typescript": "3.9.5"
+    "@yarnpkg/pnpify": "^2.2.1",
+    "typescript": "^4.0.2"
   },
   "private": true,
   "workspaces": [
+    "packages/@alleung/auto-cardanode/dev-setup~",
     "packages/@alleung/auto-cardanode/common~",
     "packages/@alleung/auto-cardanode/front-end~",
     "packages/@alleung/auto-cardanode/cli~"
   ],
   "dependenciesMeta": {
+    "@google-cloud/container": {
+      "unplugged": true
+    },
     "fastify": {
       "unplugged": true
     }

@@ -28,7 +28,12 @@
                         "compilerOptions": {
                             "target": "es6",
                             "lib": ["esnext"],
-                            "module": "commonjs"
+                            "module": "commonjs",
+                            "strict": true,
+                            "pretty": true,
+                            "noFallthroughCasesInSwitch": true,
+                            "noImplicitReturns": true,
+                            "forceConsistentCasingInFileNames": true
                         }
                     }
                 }
@@ -47,20 +52,26 @@
                                     "@types/node",
                                     "nodemon",
                                     "shx",
-                                    "@types/uuid"
+                                    "@types/uuid",
+                                    "@types/long",
+                                    "@types/protobufjs"
                                 ],
                                 "dependencies": [
                                     "@pulumi/gcp",
                                     "@pulumi/kubernetes",
                                     "@pulumi/pulumi",
+                                    "protobufjs",
+                                    "long",
                                     "fastify",
                                     "ansicolor",
                                     "uuid",
-                                    "@alleung/auto-cardanode-common"
+                                    ["@alleung/auto-cardanode-common", "*"],
+                                    "@google-cloud/container"
                                     // "open" so apparntly the maker of open dislikes Yarn and Yarn breaks too many things. https://github.com/sindresorhus/open/pull/185
                                 ],
                                 "scripts": {
-                                    "simlink:front-end": "shx rm ./build/front-end && shx ln -s ../../front-end~/build ./build/front-end",
+                                    "simlink:front-end": "shx rm -f ./build/front-end && shx ln -s ../../front-end~/bundle ./build/front-end",
+                                    "pulumi": "cd source/pulumi && GOOGLE_CREDENTIALS=$(cat secrets/gcloud.json) pulumi up --yes",
                                     "start": "yarn simlink:front-end && nodemon --watch './build' --exec 'node ./build/server.js'"
                                 },
                                 "dependenciesMeta": {
@@ -68,19 +79,12 @@
                                         "unplugged": true
                                     }
                                 }
-                            },
-                            "tsconfig.json": {
-                                "compilerOptions": {
-                                    "strict": true,
-                                    "moduleResolution": "node",
-                                    "experimentalDecorators": true,
-                                    "pretty": true,
-                                    "noFallthroughCasesInSwitch": true,
-                                    "noImplicitReturns": true,
-                                    "forceConsistentCasingInFileNames": true,
-                                    "noUnusedLocals": true
-                                }
                             }
+                        },
+                        "ignore": {
+                            ".gitignore": [
+                                "/secrets"
+                            ]
                         }
                     }
                 },
@@ -90,15 +94,30 @@
                         "json": {
                             "package.json": {
                                 "dependencies": [
-                                    "@alleung/auto-cardanode-common"
+                                    "@alleung/auto-cardanode-common",
+                                    "react",
+                                    "react-dom",
+                                    "zustand",
+                                    "crypto-es"
+                                ],
+                                "devDependencies": [
+                                    "@types/react",
+                                    "@types/react-dom",
+                                    "@types/webpack-env",
                                 ]
                             },
                             "tsconfig.json": {
                                 "compilerOptions": {
                                     "lib": ["dom"],
-                                    "module": "none" // See https://stackoverflow.com/questions/43472778/typescript-exports-is-not-defined this is temporary until I can get webpack working inside ts-monorepo
+                                    "types": ["webpack-env"],
+                                    "jsx": "react"
                                 }
                             }
+                        },
+                        "ignore": {
+                            ".gitignore": [
+                                "/bundle"
+                            ]
                         }
                     }
                 },
@@ -108,6 +127,34 @@
                         "json": {
                             "package.json": {
                                 "main": "./build/common.js"
+                            }
+                        }
+                    }
+                },
+                "-dev-setup~": {
+                    "extends": ["standard"],
+                    "files": {
+                        "json": {
+                            "package.json": {
+                                "devDependencies": [
+                                    "@types/node",
+                                    "@types/webpack-hot-middleware",
+                                    "@types/webpack-dev-middleware",
+                                    "@types/express"
+                                ],
+                                "dependencies": [
+                                    "@alleung/auto-cardanode-front-end",
+                                    "webpack-dev-middleware",
+                                    "webpack-hot-middleware",
+                                    "express",
+                                    ["webpack", "next"],
+                                    "source-map-support"
+                                ]
+                            },
+                            "tsconfig.json": {
+                                "compilerOptions": {
+                                    "types": ["node"]
+                                }
                             }
                         }
                     }

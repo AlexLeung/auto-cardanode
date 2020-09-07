@@ -1,12 +1,9 @@
-/bin/
-/node_modules/
-/secrets/
-Pulumi.yaml
-Pulumi.dev.yaml
-package-lock.json
 /.yarn
 /yarn.lock
 /.yarnrc.yml
 /.pnp.js
 /.ts-monorepo
 /.vscode
+
+Pulumi.yaml
+Pulumi.dev.yaml

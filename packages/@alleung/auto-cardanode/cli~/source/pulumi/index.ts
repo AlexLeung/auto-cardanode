@@ -2,6 +2,11 @@ import * as k8s from '@pulumi/kubernetes';
 import * as pulumi from "@pulumi/pulumi";
 import * as gcp from "@pulumi/gcp";
 
+// Docs
+// 1. https://www.pulumi.com/docs/tutorials/kubernetes/gke/
+// 2. https://www.pulumi.com/docs/intro/cloud-providers/gcp/service-account/
+// For point 2, a service-account allows us to call the GCP API instead of needing to authenticate via browser thru terminal
+
 const name = "helloworld";
 
 // Create a GKE cluster
