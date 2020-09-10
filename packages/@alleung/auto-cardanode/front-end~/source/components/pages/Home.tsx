@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Button } from './buttons/Button';
-import { useStore, SUCCESS } from './state';
-import { Page } from './pages';
-import { FileUploadSubmitButton } from './buttons/FileUploadButton';
-import { rpcClient } from '../rpc-client';
-import { keyFileAccessor } from '../utils/key-file-accessor';
+import { Button } from '../buttons/Button';
+import { useStore, SUCCESS } from '../../model/state';
+import { Page } from '../../model/pages';
+import { FileUploadSubmitButton } from '../buttons/FileUploadButton';
+import { CenterContent } from '../layouts/CenterContent';
+import { rpcClient } from '../../rpc-client';
+import { keyFileAccessor } from '../../utils/key-file-accessor';
 
 function Home() {
     const [updatePage, uploadKeyStore] = useStore(state => [state.updatePage, state.uploadKeyStore]);
@@ -31,26 +32,17 @@ function Home() {
 
     return (
         <div>
-            <div className="home" style={{
-                height: '90vh',
-                position: 'relative',
-                display: 'flex',
-                flexDirection:'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#3a4660'
-            }}>
-                <h1>AutoCardanode</h1>
-                <h1>Stake Pools</h1>
+            <CenterContent>
+                <h1>Pools for Fools</h1>
                 <FileUploadSubmitButton text="Upload Existing Key File" onChange={fileSelected} />
                 {
                     uploadError && <div style={{color: 'red'}}>
                         { uploadError }
                     </div>
                 }
-                <Button text="Create New Stake Pool" onClick={() => updatePage(Page.CreateNewPool)} />
+                <Button text="Create New Key File" onClick={() => updatePage(Page.CreateNewKeyFile)} />
                 <Button text="Download Test Key File" onClick={() => getTestKeyFile()} />
-            </div>
+            </CenterContent>
         </div>
     )
 }

@@ -1,3 +1,4 @@
+// https://github.com/brix/crypto-js/issues/276#issuecomment-612026588
 import CryptoES from 'crypto-es';
 
 const IV_BYTES = 16;
@@ -9,7 +10,6 @@ export const cryptography = {
     },
     // https://embed.plnkr.co/0VPU1zmmWC5wmTKPKnhg/
     // https://stackoverflow.com/questions/25492179/decode-a-base64-string-using-cryptojs
-    // https://github.com/brix/crypto-js/issues/276#issuecomment-612026588
     encrypt: (contentToEncrypt: string, hashedPassword: string) => {
         const initializationVector = CryptoES.lib.WordArray.random(IV_BYTES);
         return initializationVector.toString() + CryptoES.AES.encrypt(

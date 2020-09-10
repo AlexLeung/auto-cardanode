@@ -1,12 +1,14 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import Home from './Home';
-import { MasterPassword } from './MasterPassword';
-import { Page } from './pages';
-import { useStore } from './state';
-import { CreateStake } from './CreateStake';
-import { Dashboard } from './Dashboard';
+import Home from './pages/Home';
+import { MasterPassword } from './pages/MasterPassword';
+import { Page } from '../model/pages';
+import { useStore } from '../model/state';
+import { CreateNewPool } from './pages/CreateNewPool';
+import { Dashboard } from './pages/Dashboard';
 import { Header } from './Header';
+import { NewKeyFile } from './pages/NewKeyFile';
+import { theme } from './theme';
 
 const App: React.FC = () => {
     const currentPage = useStore(state => state.currentPage);
@@ -17,18 +19,20 @@ const App: React.FC = () => {
             case Page.MasterPassword:
                 return <MasterPassword />;
             case Page.CreateNewPool:
-                return <CreateStake />;
+                return <CreateNewPool />;
             case Page.Dashboard:
                 return <Dashboard />
+            case Page.CreateNewKeyFile:
+                return <NewKeyFile />
         }
     }
     return (
-        <div id="container" style={{
+        <div style={{
             margin: '0',
             padding: '0',
             boxSizing: 'border-box',
-            fontFamily:'sans-serif',
-            background: '#feffff'
+            fontFamily: theme.fontFamily,
+            background: theme.background
         }}>
             { getPage() }
         </div>
