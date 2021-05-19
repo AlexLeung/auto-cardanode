@@ -3,5 +3,6 @@ export enum Page {
     CreateNewPool = "CreateNewPool",
     MasterPassword = "MasterPassword",
     CreateNewKeyFile = "CreateNewKeyFile",
-    Dashboard = "Dashboard"
+    Dashboard = "Dashboard",
+    RegisterInfrastructure = "RegisterInfrastructure"
 }

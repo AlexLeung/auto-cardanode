@@ -3,7 +3,7 @@ import { Button } from '../buttons/Button';
 import { useStore, SUCCESS } from '../../model/state';
 import { Page } from '../../model/pages';
 import { FileUploadSubmitButton } from '../buttons/FileUploadButton';
-import { CenterContent } from '../layouts/CenterContent';
+import { CenterVeritcalAndHorizontal } from '../layouts/CenterVertAndHoriz';
 import { rpcClient } from '../../rpc-client';
 import { keyFileAccessor } from '../../utils/key-file-accessor';
 
@@ -32,7 +32,7 @@ function Home() {
 
     return (
         <div>
-            <CenterContent>
+            <CenterVeritcalAndHorizontal>
                 <h1>Pools for Fools</h1>
                 <FileUploadSubmitButton text="Upload Existing Key File" onChange={fileSelected} />
                 {
@@ -42,7 +42,7 @@ function Home() {
                 }
                 <Button text="Create New Key File" onClick={() => updatePage(Page.CreateNewKeyFile)} />
                 <Button text="Download Test Key File" onClick={() => getTestKeyFile()} />
-            </CenterContent>
+            </CenterVeritcalAndHorizontal>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 
-export const CenterInlineContent: React.FC<{width?: number | string, justifyContent?: React.CSSProperties['justifyContent']}> = props => {
+export const CenterHorizontal: React.FC<{width?: number | string, justifyContent?: React.CSSProperties['justifyContent']}> = props => {
     return <div style={{
         width: props.width ?? '100%',
         paddingTop:'5px',

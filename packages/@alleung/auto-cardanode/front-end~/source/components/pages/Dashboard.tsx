@@ -12,8 +12,7 @@ export const Dashboard: React.FC = () => {
     const [showTestNet, setShowTestNet] = React.useState<boolean>(false);
     const updatePage = useStore(state => state.updatePage);
     return <SignedInPage>
-        <Title text="Stake Pools" />
-        <Button text="Create New Stake Pool" onClick={() => updatePage(Page.CreateNewPool)} />
+        <Title text="Dashboard" />
         <div>
             <span style={{margin:'0 20px'}}>
                 Main Net <input type="checkbox" checked={showMainNet} onChange={e => setShowMainNet(e.target.checked)} />

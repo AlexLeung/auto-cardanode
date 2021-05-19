@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { CenterContent } from '../layouts/CenterContent';
+import { CenterVeritcalAndHorizontal } from '../layouts/CenterVertAndHoriz';
 import { Button } from '../buttons/Button';
 import { useStore } from '../../model/state';
 import { Page } from '../../model/pages';
-import { CenterInlineContent } from '../layouts/CenterInlineContent';
+import { CenterHorizontal } from '../layouts/CenterHoriz';
 import { Title } from '../Title';
 import { TextInput, TextInputType } from '../TextInput';
 import { ErrorReporter } from '../ErrorReporter';
@@ -19,16 +19,16 @@ export const NewKeyFile: React.FC = () => {
     
 
     return (
-        <CenterContent>
+        <CenterVeritcalAndHorizontal>
             <TextInput type={TextInputType.Password}
                 label="New Key File Password" onChange={setFirstPassword} />
             <TextInput type={TextInputType.Password}
                 label="Repeat Password" onChange={setSecondPassword} />
             <ErrorReporter text={errorText} />
-            <CenterInlineContent width={250}>
+            <CenterHorizontal width={250}>
                 <Button text="Back" onClick={() => updatePage(Page.Launch)} />
                 <Button text="Submit" onClick={() => {}} disabled={true} />
-            </CenterInlineContent>
-        </CenterContent>
+            </CenterHorizontal>
+        </CenterVeritcalAndHorizontal>
     )
 }

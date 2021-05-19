@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 
-export const CenterContent: React.FC = props => {
+export const CenterVeritcalAndHorizontal: React.FC = props => {
     return <div style={{
         height: '100%',
         position: 'relative',

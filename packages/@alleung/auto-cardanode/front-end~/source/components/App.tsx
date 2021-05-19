@@ -9,6 +9,7 @@ import { Dashboard } from './pages/Dashboard';
 import { Header } from './Header';
 import { NewKeyFile } from './pages/NewKeyFile';
 import { theme } from './theme';
+import { RegisterInfrastructure } from './pages/RegisterInfrastructure';
 
 const App: React.FC = () => {
     const currentPage = useStore(state => state.currentPage);
@@ -21,9 +22,11 @@ const App: React.FC = () => {
             case Page.CreateNewPool:
                 return <CreateNewPool />;
             case Page.Dashboard:
-                return <Dashboard />
+                return <Dashboard />;
             case Page.CreateNewKeyFile:
-                return <NewKeyFile />
+                return <NewKeyFile />;
+            case Page.RegisterInfrastructure:
+                return <RegisterInfrastructure />;
         }
     }
     return (

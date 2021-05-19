@@ -23,3 +23,4 @@ export type RPCService = {
 }
 
 export * from './key-file';
+export * from './infrastructure-providers';

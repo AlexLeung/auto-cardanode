@@ -12,6 +12,8 @@ export enum TextInputType {
 export interface TextInputProps {
     label: string;
     type: TextInputType;
+    value?: string;
+    initialValue?: string;
     onChange: (newText: string) => void
 }
 
@@ -26,25 +28,47 @@ const standardStyle: React.CSSProperties = {
 }
 
 export const TextInput: React.FC<TextInputProps> = props => {
+    const [value, setValue] = React.useState(props.value ?? props.initialValue ?? "");
+
+    const definitiveValue = props.value ?? value;
+
+    function onUpdate(e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) {
+        const targetValue = e.target.value;
+        props.onChange(targetValue);
+        setValue(targetValue);
+    }
 
     function getInputField(inputType: TextInputType) {
         switch(inputType) {
             case TextInputType.SingleLine:
                 return <input 
                     style={{...standardStyle}}
-                    type="text" onChange={e => props.onChange(e.target.value)} 
+                    type="text" onChange={onUpdate}
+                    value={definitiveValue}
                 />
             case TextInputType.Password:
                 return <input 
                     style={{...standardStyle}}
-                    type="password" onChange={e => props.onChange(e.target.value)}
+                    type="password" onChange={onUpdate}
+                    value={definitiveValue}
                 />
             case TextInputType.FreeForm:
                 return <textarea 
-                    onChange={e => props.onChange(e.target.value)}
+                    onChange={onUpdate}
+                    value={definitiveValue}
                 />
             case TextInputType.Code:
-                return <textarea />
+                return <textarea
+                    onChange={onUpdate}
+                    value={definitiveValue}
+                    style={{
+                        ...standardStyle,
+                        fontSize: 14,
+                        fontFamily: 'monospace',
+                        height: 400,
+                        width: 300
+                    }}
+                />
         }
     }
 

@@ -7,7 +7,7 @@ export const ErrorReporter: React.FC<{text: string | undefined}> = props => {
         background: '#FFBABA',
         color: '#D8000C',
         borderRadius: theme.borderRadius,
-        fontSize: theme.field.fontSize,
+        fontSize: theme.subtext.fontSize,
         textAlign: 'center'
     }}>
         {props.text}

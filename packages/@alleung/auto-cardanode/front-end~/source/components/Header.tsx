@@ -1,11 +1,6 @@
 import * as React from 'react';
-import { Button } from './buttons/Button';
-import { Page } from '../model/pages';
-import { useStore } from '../model/state';
 
-export const Header: React.FC = () => {
-    const updatePage = useStore(state => state.updatePage);
-
+export const Header: React.FC<{left: React.ReactNode, right: React.ReactNode}> = props => {
     return <div className="header" style={{
                 display: 'flex',
                 height: '75px',
@@ -16,7 +11,11 @@ export const Header: React.FC = () => {
                 alignItems: 'center',
                 boxSizing: 'border-box'
             }}>
-                <div></div>
-                <Button text="Sign Out" onClick={() => updatePage(Page.Launch)} /> 
+                <div>
+                    {props.left}
+                </div>
+                <div>
+                    {props.right}
+                </div>
         </div>
     }

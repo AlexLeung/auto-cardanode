@@ -52,9 +52,9 @@
                                     "@types/node",
                                     "nodemon",
                                     "shx",
-                                    "@types/uuid",
-                                    "@types/long",
-                                    "@types/protobufjs"
+                                    "@types/uuid"
+                                    //"@types/long",
+                                    //"@types/protobufjs"
                                 ],
                                 "dependencies": [
                                     "@pulumi/gcp",

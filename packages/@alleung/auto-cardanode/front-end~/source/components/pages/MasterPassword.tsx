@@ -4,8 +4,8 @@ import { Button } from '../buttons/Button';
 import { Page } from '../../model/pages';
 import { SUCCESS, useStore } from '../../model/state';
 import { KeyFileDecryptError } from '../../utils/key-file-accessor';
-import { CenterContent } from '../layouts/CenterContent';
-import { CenterInlineContent } from '../layouts/CenterInlineContent';
+import { CenterVeritcalAndHorizontal } from '../layouts/CenterVertAndHoriz';
+import { CenterHorizontal } from '../layouts/CenterHoriz';
 import { Title } from '../Title';
 import { TextInput, TextInputType } from '../TextInput';
 import { ErrorReporter } from '../ErrorReporter';
@@ -34,16 +34,16 @@ export const MasterPassword: React.FC = () => {
     }
 
     return <div>
-                <CenterContent>
-                    <form onSubmit={e => {e.preventDefault(); submitPassword();}}>
-                        <TextInput type={TextInputType.Password} label="Master Password"
-                            onChange={setPassword} />
-                    </form>
-                    <ErrorReporter text={errorText} />
-                    <CenterInlineContent width={250}>
-                        <Button text="Back" onClick={() => updatePage(Page.Launch)} />
-                        <Button text="Submit" onClick={() => submitPassword()} />
-                    </CenterInlineContent>
-                </CenterContent> 
-            </div>
+        <CenterVeritcalAndHorizontal>
+            <form onSubmit={e => {e.preventDefault(); submitPassword();}}>
+                <TextInput type={TextInputType.Password} label="Master Password"
+                    onChange={setPassword} />
+            </form>
+            <ErrorReporter text={errorText} />
+            <CenterHorizontal width={250}>
+                <Button text="Back" onClick={() => updatePage(Page.Launch)} />
+                <Button text="Submit" onClick={() => submitPassword()} />
+            </CenterHorizontal>
+        </CenterVeritcalAndHorizontal> 
+    </div>
 }

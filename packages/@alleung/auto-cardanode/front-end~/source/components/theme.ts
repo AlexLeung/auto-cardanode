@@ -9,5 +9,8 @@ export const theme = {
         fontSize: 20,
         padding: '8px 16px',
     },
+    subtext: {
+        fontSize: 17
+    },
     borderRadius: '6px'
 } as const;
